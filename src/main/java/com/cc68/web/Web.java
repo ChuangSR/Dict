@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.cc68.beans.MessageBean;
 import com.cc68.service.DictService;
 import com.cc68.service.impl.DictServiceImpl;
+import com.cc68.temp.ScriptSocket;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,13 @@ public class Web extends HttpServlet {
     @Override
     public void init() throws ServletException {
         service = new DictServiceImpl();
+        ScriptSocket.init("127.0.0.1",10068);
     }
+
+//    @Override
+//    public void destroy() {
+//        System.out.println(System.getProperty("user.dir"));
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

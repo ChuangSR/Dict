@@ -17,5 +17,6 @@ public class Mian {
         String decodeStr = new String(decoded);
         System.out.println("Base 64 解密后：" + decodeStr);
 
+        System.out.println(System.getProperty("user.dir"));
     }
 }
