@@ -1,9 +1,11 @@
 package com.cc68.beans;
 
+import java.io.Serializable;
+
 /**
   * 一个专门属于方言的bean，预估被组合在DictBean中
   */
-public class DialectBean {
+public class DialectBean implements Serializable {
     //方言的地区
     private String area;
     //字词
@@ -64,4 +66,5 @@ public class DialectBean {
         this.pronunciation = pronunciation;
         this.notes = notes;
     }
+
 }

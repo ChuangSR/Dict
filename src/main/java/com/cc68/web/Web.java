@@ -4,8 +4,9 @@ import com.alibaba.fastjson2.JSON;
 import com.cc68.beans.MessageBean;
 import com.cc68.service.DictService;
 import com.cc68.service.impl.DictServiceImpl;
-import com.cc68.temp.ScriptSocket;
+import com.cc68.socket.ScriptSocket;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,18 +17,17 @@ import java.util.HashMap;
 /**
  * web展示页面
  * */
+@WebServlet({"/a"})
 public class Web extends HttpServlet {
     private DictService service;
     @Override
     public void init() throws ServletException {
         service = new DictServiceImpl();
         ScriptSocket.init("127.0.0.1",10068);
+        System.out.println(System.getProperty("user.dir"));
+//        System.out.println();
     }
-
-//    @Override
-//    public void destroy() {
-//        System.out.println(System.getProperty("user.dir"));
-//    }
+//    F:\java\servlet\apache-tomcat-11.0.0-M1\bin
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

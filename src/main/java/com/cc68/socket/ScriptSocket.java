@@ -1,4 +1,4 @@
-package com.cc68.temp;
+package com.cc68.socket;
 
 import com.alibaba.fastjson2.JSON;
 import com.cc68.beans.SocketBean;
@@ -10,8 +10,11 @@ import java.util.HashMap;
 public class ScriptSocket {
     private static String serverIp;
     private static int port;
-    
-    public static void init(String serverIp,int port){
+
+    private ScriptSocket() {
+    }
+
+    public static void init(String serverIp, int port){
         ScriptSocket.serverIp = serverIp;
         ScriptSocket.port = port;
     }
@@ -28,7 +31,7 @@ public class ScriptSocket {
         BufferedWriter writer = null;
         SocketBean reply = null;
         try {
-            client = new Socket("127.0.0.1",10068);
+            client = new Socket(serverIp,port);
             writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
             
@@ -42,6 +45,7 @@ public class ScriptSocket {
             }
 
             reply = JSON.parseObject(buffer.toString(), SocketBean.class);
+            System.out.println(reply.getType());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {
