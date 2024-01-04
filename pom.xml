@@ -55,6 +55,7 @@
       <artifactId>fastjson2</artifactId>
       <version>2.0.44</version>
     </dependency>
+
   </dependencies>
   <build>
     <finalName>Dict</finalName>

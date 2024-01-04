@@ -1,10 +1,11 @@
 package com.cc68.beans;
 
+import java.io.Serializable;
 import java.util.HashMap;
 /**
  * 一个属于字典的bean，用于组合在MessageBean中返回前端
  * */
-public class DictBean {
+public class DictBean implements Serializable {
     //数据名称
     private String data;
 

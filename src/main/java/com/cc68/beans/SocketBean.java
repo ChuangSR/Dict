@@ -29,4 +29,5 @@ public class SocketBean {
         this.type = type;
         this.map = map;
     }
+
 }
