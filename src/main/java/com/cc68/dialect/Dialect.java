@@ -13,6 +13,15 @@ public class Dialect implements Serializable {
     private ArrayList<DialectBean> words;
     private ArrayList<DialectBean> sentences;
 
+    public Dialect() {
+    }
+
+    public Dialect(ArrayList<DialectBean> characters, ArrayList<DialectBean> words, ArrayList<DialectBean> sentences) {
+        this.characters = characters;
+        this.words = words;
+        this.sentences = sentences;
+    }
+
     public DialectBean search(String data){
         int hash = data.hashCode();
         ArrayList<DialectBean> temp = getType(data);
