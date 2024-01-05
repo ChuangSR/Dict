@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class SocketBean {
     private String type;
-    private HashMap<String,String> map;
+    private HashMap<String,String> data;
 
     public String getType() {
         return type;
@@ -15,19 +15,18 @@ public class SocketBean {
     }
 
     public HashMap<String, String> getMap() {
-        return map;
+        return data;
     }
 
-    public void setMap(HashMap<String, String> map) {
-        this.map = map;
+    public void setMap(HashMap<String, String> data) {
+        this.data = data;
     }
 
     public SocketBean() {
     }
 
-    public SocketBean(String type, HashMap<String, String> map) {
+    public SocketBean(String type, HashMap<String, String> data) {
         this.type = type;
-        this.map = map;
+        this.data = data;
     }
-
 }

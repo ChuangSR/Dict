@@ -22,6 +22,7 @@ public class ScriptSocket {
         HashMap<String,String> data = new HashMap<>();
         data.put("character",character);
         SocketBean bean = new SocketBean("search",data);
+        System.out.println(JSON.toJSONString(bean));
         return send(bean);
     }
     
@@ -34,8 +35,8 @@ public class ScriptSocket {
             client = new Socket(serverIp,port);
             writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            
             writer.write(JSON.toJSONString(bean));
+            writer.flush();
             client.shutdownOutput();
             
             String data;
@@ -45,7 +46,6 @@ public class ScriptSocket {
             }
 
             reply = JSON.parseObject(buffer.toString(), SocketBean.class);
-            System.out.println(reply.getType());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {

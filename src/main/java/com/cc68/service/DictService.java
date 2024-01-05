@@ -11,4 +11,6 @@ public interface DictService {
     MessageBean delete(String dialect,String data);
 
     MessageBean renew(String dialect,DialectBean bean,String old);
+
+    MessageBean getDialects();
 }

@@ -67,4 +67,14 @@ public class DialectBean implements Serializable {
         this.notes = notes;
     }
 
+    @Override
+    public String toString() {
+        return "DialectBean{" +
+                "area='" + area + '\'' +
+                ", data='" + data + '\'' +
+                ", voiceUrl='" + voiceUrl + '\'' +
+                ", pronunciation='" + pronunciation + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }

@@ -21,14 +21,14 @@ public class AdminFilter implements Filter {
 
         //使用FastJSON2库将数据转为JSON
         MessageBean bean = JSON.parseObject(new String(decode), MessageBean.class);
-
+//        MessageBean bean = JSON.parseObject(servletRequest.getParameter("data"),MessageBean.class);
         //将数据存储到request域中
         servletRequest.setAttribute("data",bean);
 
         //请求操作判断
         if ("search".equals(bean.getType())){
             filterChain.doFilter(servletRequest,servletResponse);
-        }else {
+        }else if ("add".equals(bean.getType()) || "delete".equals(bean.getType()) || "renew".equals(bean.getType())){
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpSession session = request.getSession(false);
             //登录判断
@@ -39,6 +39,8 @@ public class AdminFilter implements Filter {
             }else {
                 filterChain.doFilter(servletRequest,servletResponse);
             }
+        }else {
+            filterChain.doFilter(servletRequest,servletResponse);
         }
     }
 }

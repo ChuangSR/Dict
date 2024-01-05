@@ -1,4 +1,3 @@
-import com.alibaba.fastjson2.JSON;
 import com.cc68.beans.DialectBean;
 
 import java.io.*;
@@ -12,16 +11,18 @@ public class Mian {
 //        stream.flush();
 //        stream.close();
 
-        ObjectInputStream stream = new ObjectInputStream(new FileInputStream("./bean"));
+        ObjectInputStream stream = new ObjectInputStream(new FileInputStream("datas/02G41-莆田.dialect"));
         Object o = stream.readObject();
-        DialectBean bean = null;
-        if (o instanceof DialectBean){
-            bean = (DialectBean)o;
+        ArrayList<DialectBean> bean = null;
+        if (o instanceof ArrayList<?>){
+            bean = (ArrayList<DialectBean>) o;
         }
-        System.out.println(JSON.toJSONString(bean));
-//        String temp = "{\"a\":\"1\"}";
+        for (DialectBean a:bean){
+            System.out.println(a);
+        }
+//        String temp = "{\"a.txt\":\"1\"}";
 //        HashMap parse = (HashMap)JSON.parse(temp);
-//        System.out.println(parse.get("a"));
+//        System.out.println(parse.get("a.txt"));
 //        Base64.getDecoder()
 //        String encoded = Base64.getEncoder().encodeToString(temp.getBytes());
 //        System.out.println("Base 64 加密后：" + encoded);

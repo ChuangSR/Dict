@@ -13,6 +13,30 @@ public class Dialect implements Serializable {
     private ArrayList<DialectBean> words;
     private ArrayList<DialectBean> sentences;
 
+    public ArrayList<DialectBean> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(ArrayList<DialectBean> characters) {
+        this.characters = characters;
+    }
+
+    public ArrayList<DialectBean> getWords() {
+        return words;
+    }
+
+    public void setWords(ArrayList<DialectBean> words) {
+        this.words = words;
+    }
+
+    public ArrayList<DialectBean> getSentences() {
+        return sentences;
+    }
+
+    public void setSentences(ArrayList<DialectBean> sentences) {
+        this.sentences = sentences;
+    }
+
     public Dialect() {
     }
 
@@ -30,6 +54,7 @@ public class Dialect implements Serializable {
         if (index != -1){
             bean = temp.get(index);
         }
+
         return bean;
     }
 
@@ -39,7 +64,7 @@ public class Dialect implements Serializable {
         int left = list.size();
         while (right <= left){
             int index = (right+left)/2;
-            int dataHash = list.get(index).hashCode();
+            int dataHash = list.get(index).getData().hashCode();
             if (hash < dataHash){
                 left = index - 1;
             }else if (hash > dataHash){
@@ -48,8 +73,8 @@ public class Dialect implements Serializable {
                 return new SearchStatus(index,false);
             }
         }
-
-        return new SearchStatus(status ? right:-1,status);
+        SearchStatus searchStatus = new SearchStatus(status ? right : -1, status);
+        return searchStatus;
     }
     //用于补充查询状态的类
     private class SearchStatus{
@@ -76,10 +101,19 @@ public class Dialect implements Serializable {
         public void setStatus(boolean status) {
             this.status = status;
         }
+
+        @Override
+        public String toString() {
+            return "SearchStatus{" +
+                    "index=" + index +
+                    ", status=" + status +
+                    '}';
+        }
     }
     //获取数据的类型
     private ArrayList<DialectBean> getType(String data){
         ArrayList<DialectBean> temp = null;
+        System.out.println(data);
         if (data.length() == 1){
             temp = characters;
         }else if (data.length() < 5){
