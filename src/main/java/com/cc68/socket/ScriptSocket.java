@@ -18,19 +18,19 @@ public class ScriptSocket {
         ScriptSocket.serverIp = serverIp;
         ScriptSocket.port = port;
     }
-    public static SocketBean search(String character){
+    public static HashMap<String,Object> search(String character){
         HashMap<String,String> data = new HashMap<>();
         data.put("character",character);
+        data.put("path","G:\\OneDiver\\NewOD\\OneDrive - 睎的小屋\\MyProject\\idea\\Dict\\src\\main\\webapp\\resources\\Character");
         SocketBean bean = new SocketBean("search",data);
-        System.out.println(JSON.toJSONString(bean));
         return send(bean);
     }
     
-    private static SocketBean send(SocketBean bean){
+    private static HashMap<String,Object> send(SocketBean bean){
         Socket client = null;
         BufferedReader reader = null;
         BufferedWriter writer = null;
-        SocketBean reply = null;
+        HashMap<String,Object> reply = null;
         try {
             client = new Socket(serverIp,port);
             writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
@@ -44,8 +44,7 @@ public class ScriptSocket {
             while ((data = reader.readLine())!=null){
                 buffer.append(data);
             }
-
-            reply = JSON.parseObject(buffer.toString(), SocketBean.class);
+            reply = JSON.parseObject(buffer.toString(),HashMap.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {

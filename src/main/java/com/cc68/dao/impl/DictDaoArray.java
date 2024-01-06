@@ -68,15 +68,16 @@ public class DictDaoArray implements DictDao, Serializable {
     }
 
     @Override
-    public HashMap<String,ArrayList<String>> getDialects() {
+    public HashMap<String,String[]> getDialects() {
         Set<String> keys = map.keySet();
-        HashMap<String,ArrayList<String>> replyMap = new HashMap<>();
+        HashMap<String,String[]> replyMap = new HashMap<>();
         for (String key:keys){
             Dialect dialect = map.get(key);
             ArrayList<DialectBean> characters = dialect.getCharacters();
-            ArrayList<String> temp = new ArrayList<>(1000);
-            for (DialectBean bean:characters){
-                temp.add(bean.getData());
+//            ArrayList<String> temp = new ArrayList<>(1000);
+            String[] temp = new String[characters.size()];
+            for (int i =0;i < characters.size();i++){
+                temp[i] = characters.get(i).getData();
             }
             replyMap.put(key,temp);
         }

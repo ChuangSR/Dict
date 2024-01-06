@@ -1,6 +1,7 @@
 package com.cc68.web;
 
 import com.alibaba.fastjson2.JSON;
+import com.cc68.beans.DictBean;
 import com.cc68.beans.MessageBean;
 import com.cc68.service.DictService;
 import com.cc68.service.impl.DictServiceImpl;
@@ -35,14 +36,6 @@ public class Web extends HttpServlet {
     }
 //    F:\java\servlet\apache-tomcat-11.0.0-M1\bin
 
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
-        MessageBean duo = service.search("02G41-莆田", "多");
-        resp.getWriter().print(JSON.toJSONString(duo));
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MessageBean dataBean = JSON.parseObject(req.getParameter("data"), MessageBean.class);
@@ -50,19 +43,22 @@ public class Web extends HttpServlet {
         String type = dataBean.getType();
         HashMap<String,Object> data = dataBean.getData();
 
-        MessageBean replyBean = null;
+//        MessageBean replyBean = null;
         if ("search".equals(type)) {
             String dialect = (String)data.get("dialect");
             String character = (String) data.get("character");
 //            bean = service.search(dialect,character);
-            replyBean = service.search(dialect,character);
+            DictBean replyBean = service.search(dialect, character);
+            System.out.println(JSON.toJSONString(replyBean));
+            resp.getWriter().print(JSON.toJSONString(replyBean));
         }else if ("add".equals(type)){
             String old = req.getParameter("old");
             String dialect = req.getParameter("dialect");
 //            bean = service.add(dialect,null);
         }else if ("dialectLoad".equals(type)){
+            MessageBean replyBean = null;
             replyBean = service.getDialects();
+            resp.getWriter().print(JSON.toJSONString(replyBean));
         }
-        resp.getWriter().print(JSON.toJSONString(replyBean));
     }
 }

@@ -1,211 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0027)http://localhost:8080/Dict/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title>Title</title>
-  <style>
-      body {
-          background-color: white;
-      }
+    <style>
+        body {
+            background-color: white;
+        }
 
-      .main {
-          display: flex;
-          flex-direction: row;
-          height: 100%;
-          width: 80%;
-          background-color: #E0EEE0;
-          position: absolute;
-          top: 90px;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          margin: auto;
-      }
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 80%;
+            background-color: #E0EEE0;
+            position: absolute;
+            top: 90px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
 
-      .left {
-          display: flex;
-          flex-direction: column;
-          background-color: #EECBAD;
-          height: 100%;
-          width: 10%;
-          /*border-right: 1px solid;*/
-      }
+        .left {
+            display: flex;
+            flex-direction: column;
+            background-color: #EECBAD;
+            height: 100%;
+            width: 10%;
+            /*border-right: 1px solid;*/
+        }
 
-      .right {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          width: 90%;
-      }
+        .right {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 90%;
+        }
 
-      .search {
-          height: 20%;
-          width: 100%;
-      }
+        .search {
+            height: 20%;
+            width: 100%;
+        }
 
-      .info {
-          height: 80%;
-          width: 100%;
-          background-color: #8B8989;
-      }
+        .info {
+            height: 80%;
+            width: 100%;
+            background-color: #8B8989;
+        }
 
-      .box {
-          position: absolute;
-          top: 10%;
-          left: 55%;
-          transform: translate(-50%,-50%);
-          width: 500px;
-          height: 40px;
-          border: 2px solid;
-          margin: auto;
-      }
+        .box {
+            position: absolute;
+            top: 10%;
+            left: 55%;
+            transform: translate(-50%,-50%);
+            width: 500px;
+            height: 40px;
+            border: 2px solid;
+            margin: auto;
+        }
 
-      .input {
-          float: left;
-          width: 400px;
-          /*宽400*/
-          height: 38px;
-          /*高38（因为文本框内外边框要占用1像素所以总体高度减2，其他盒子同理）*/
-          outline: none;
-          border: none;
-          /*取消文本框内外边框*/
-      }
+        .input {
+            float: left;
+            width: 400px;
+            /*宽400*/
+            height: 38px;
+            /*高38（因为文本框内外边框要占用1像素所以总体高度减2，其他盒子同理）*/
+            outline: none;
+            border: none;
+            /*取消文本框内外边框*/
+        }
 
-      .button {
-          float: left;
-          width: 96px;
-          height: 40px;
-          color: #4876FF;
-          border: none;
-          outline: none;
-          /*取消边框和外边框将按钮边框去掉*/
-      }
+        .button {
+            float: left;
+            width: 96px;
+            height: 40px;
+            color: #4876FF;
+            border: none;
+            outline: none;
+            /*取消边框和外边框将按钮边框去掉*/
+        }
 
-      .wordRow {
-          width: 100%;
-          height: 30%;
-          /*background-color: red;*/
-      }
+        .wordRow {
+            width: 100%;
+            height: 30%;
+            /*background-color: red;*/
+        }
 
-      .word {
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          width: 16%;
-          padding: 0;
-          float: left;
-          line-height: 200px;
-          font-size: 200px;
-          text-align: center;
-      }
+        .word {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 25%;
+            padding: 0;
+            float: left;
+            line-height: 200px;
+            font-size: 200px;
+            text-align: center;
+        }
+        .other {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 75%;
+            background-color: green;
+        }
+        .wordMeaning {
+            width: 100%;
+            height: 10%;
+            background-color: blue;
+            text-align: center;
+        }
 
-      .wordMeaning {
-          width: 100%;
-          height: 10%;
-          background-color: blue;
-          text-align: center;
-      }
+        .wordInfo {
+            width: 100%;
+            height: 60%;
+            background-color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        window.addEventListener("load",function (){
+            let xhr = new XMLHttpRequest();
+            let dialectLoad =  function (){
+                if(this.readyState === 4){
+                    if(this.status === 200){
+                        let dialects = document.getElementById("dialects");
+                        let dialectTypes = document.getElementById("dialectType");
+                        window.dialects = JSON.parse(this.responseText)['data']['data'];
+                        let temp = "";
+                        let sum = 0;
+                        for (let i in window.dialects){
+                            if (sum == 0){
+                                sum = i;
+                            }
+                            temp+="<option>"+i+"</option>";
+                        }
+                        dialects.innerHTML =temp;
+                        dialectTypes.innerHTML = temp;
 
-      .wordInfo {
-          width: 100%;
-          height: 60%;
-          background-color: red;
-      }
-  </style>
-  <script type="text/javascript">
-      window.addEventListener("load",function (){
-          let xhr = new XMLHttpRequest();
-          let dialectLoad =  function (){
-              if(this.readyState === 4){
-                  if(this.status === 200){
-                      let dialects = document.getElementById("dialects");
-                      let dialectType = document.getElementById("dialectType");
-                      window.dialects = JSON.parse(this.responseText)['data']['data'];
-                      let temp = "";
-                      for (let i in window.dialects){
-                          temp+="<option>"+i+"</option>";
-                      }
-                      dialects.innerHTML =temp;
-                      dialectType.innerHTML = temp;
-                  }
-              }
-          }
-          xhr.addEventListener("readystatechange",dialectLoad);
-          xhr.open("POST","dialectLoad",true);
-          xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-          let messageBean = 'data={"type":"dialectLoad"}';
-          xhr.send(messageBean);
-          let search = document.getElementById("search");
-          search.addEventListener("click",function () {
-              let select = document.getElementById("dialectType");
-              let dialectType = select[select.selectedIndex].text;
-              let word = document.getElementById("word").value[0];
+                        let olInfo = document.getElementById("olInfo");
+                        let dialect = window.dialects[sum];
+                        let li = "";
+                        for(let i =0;i < 40;i++){
+                            li+="<ul>"+dialect[i]+"</ul>";
+                        }
+                        olInfo.innerHTML = li;
+                    }
+                }
+            }
+            xhr.addEventListener("readystatechange",dialectLoad);
+            xhr.open("POST","dialectLoad",true);
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            let messageBean = 'data={"type":"dialectLoad"}';
+            xhr.send(messageBean);
+            let search = document.getElementById("search");
+            let searchFunction = function () {
+                if(this.readyState === 4){
+                    if(this.status === 200){
+                        let reply = JSON.parse(this.responseText);
+                        let character = document.getElementById("character");
+                        character.innerText = reply["data"];
+                        let details = reply["details"];
+                        let dialect = reply["dialect"];
 
-              let pattern = new RegExp("[\u4E00-\u9FA5]+");
-              let search = function () {
-                  if(this.readyState === 4){
-                      if(this.status === 200){
-                          alert(this.responseText);
-                          // let dialects = document.getElementById("dialects");
-                          // let dialectType = document.getElementById("dialectType");
-                          // window.dialects = JSON.parse(this.responseText)['data']['data'];
-                          // let temp = "";
-                          // for (let i in window.dialects){
-                          //     temp+="<option>"+i+"</option>";
-                          // }
-                          // dialects.innerHTML =temp;
-                          // dialectType.innerHTML = temp;
-                      }
-                  }
-              }
-              if (pattern.test(word)){
-                  let messageBean = 'data={"type":"search","data":{"dialect":"'+dialectType+'","character":"'+word+'"}}';
-                  alert(messageBean)
-                  xhr.removeEventListener("readystatechange",dialectLoad);
-                  xhr.addEventListener("readystatechange",search);
-                  xhr.open("POST","search",true);
-                  xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-                  xhr.send(messageBean);
-              }
-          })
-      });
-  </script>
+                        let pinyin = document.getElementById("pinyin");
+                        let pinyin_path = details["pinyin_path"]
+                        pinyin.innerHTML="拼音:"+"<a src='javascript:void(0)' id='detailsAudioPlay'>"+details["pinyin"]+"</a>";
+                        document.getElementById("detailsAudio").setAttribute("src","resources/"+pinyin_path);
+                        document.getElementById("phonetic_notation").innerText="注音:"+details["phonetic_notation"];
+                        document.getElementById("radicals").innerText="部首:" + details["radicals"];
+                        document.getElementById("total_stroke").innerText="总笔画:"+details["total_stroke"];
+                        document.getElementById("font_structure").innerText="结构:"+details["font_structure"];
+                        document.getElementById("area").innerText="方言地区:"+dialect["area"];
+
+
+                        let voice = document.getElementById("voice");
+                        let voiceUrl = dialect["voiceUrl"];
+                        if (voiceUrl === "null"){
+                            voice.innerText="方言发音";
+                        }else {
+                            voice.innerHTML="<a src='javascript:void(0)' id='dialectAudioPlay'>方言发音</a>";
+                        }
+                        document.getElementById("dialectAudio").setAttribute("src","resources/"+voiceUrl);
+
+                        document.getElementById("pronunciation").innerText="方言注音:"+dialect["pronunciation"];
+                        document.getElementById("notes").innerText="备注:"+dialect["notes"];
+
+                        let audioPlay = function (e){
+                            let target = e.target;
+                            let id = target.id;
+                            let audio = document.getElementById(id.split("Play")[0]);
+                            audio.play();
+                        }
+
+                        document.getElementById("detailsAudioPlay").addEventListener("click",audioPlay);
+                        document.getElementById("dialectAudioPlay").addEventListener("click",audioPlay);
+
+                        let meanings = details["basic_word_meanings"];
+                        let ps = "";
+                        for (let i = 0;i < meanings.length;i++){
+                            ps += "<p class='meaning'>"+meanings[i]+"</p>";
+                        }
+
+                        let wordInfo = document.getElementById("wordInfo");
+                        wordInfo.innerHTML = ps;
+                    }
+                }
+            }
+            search.addEventListener("click",function () {
+                let select = document.getElementById("dialectType");
+                let dialectType = select[select.selectedIndex].text;
+                let word = document.getElementById("word").value[0];
+
+                let pattern = new RegExp("[\u4E00-\u9FA5]+");
+
+                if (pattern.test(word)){
+                    let xhr = new XMLHttpRequest();
+                    let messageBean = 'data={"type":"search","data":{"dialect":"'+dialectType+'","character":"'+word+'"}}';
+                    xhr.addEventListener("readystatechange",searchFunction);
+                    xhr.open("POST","search",true);
+                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                    xhr.send(messageBean);
+                }
+            });
+            let olInfo = document.getElementById("olInfo");
+            olInfo.addEventListener("click",function (e){
+                const ul = e.target;
+                if (ul.tagName !== "UL"){
+                    return;
+                }
+                let select = document.getElementById("dialects");
+                let dialectType = select[select.selectedIndex].text;
+                let xhr = new XMLHttpRequest();
+                let messageBean = 'data={"type":"search","data":{"dialect":"'+dialectType+'","character":"'+ul.innerText+'"}}';
+                xhr.addEventListener("readystatechange",searchFunction);
+                xhr.open("POST","search",true);
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                xhr.send(messageBean);
+            })
+        });
+    </script>
 </head>
 <body>
-  <div class="main">
-      <div class="left">
-          <select id="dialects" name="dialects" style="text-align:center;text-align-last:center;">
-          </select>
-      </div>
-      <div class="right">
-          <div class="search">
-              <div class="box">
-                  <input id="word" type="text" class="input" placeholder="请输入的汉字">
-                  <select id="dialectType" name="dialectType">
-                  </select>
-                  <!--placeholder是文本框中的提示文字-->
-                  <input id="search" type="button" value="搜索" class="button">
+<div class="main">
+    <audio id="detailsAudio" controls="" style="display: none">
+    </audio>
+    <audio id="dialectAudio" controls="" style="display: none">
+    </audio>
+    <div class="left">
+        <select id="dialects" style="text-align:center;text-align-last:center;"></select>
+        <ol id="olInfo"></ol>
+    </div>
+    <div class="right">
+        <div class="search">
+            <div class="box">
+                <input id="word" type="text" class="input" placeholder="请输入的汉字">
+                <select id="dialectType" name="dialectType"></select>
+                <!--placeholder是文本框中的提示文字-->
+                <input id="search" type="button" value="搜索" class="button">
 
-              </div>
-          </div>
-          <div class="info">
-              <div class="wordRow">
-                  <div class="word">
-                      好
-                  </div>
-              </div>
-              <div class="wordMeaning">
-                  <h1>基本字义</h1>
-              </div>
-              <div class="wordInfo">
-                  <p>aaaaaaaaaaaaaaaaa</p>
-                  <p>aaaaaaaaaaaaaaaaa</p>
-                  <p>aaaaaaaaaaaaaaaaa</p>
-                  <p>aaaaaaaaaaaaaaaaa</p>
-                  <p>aaaaaaaaaaaaaaaaa</p>
-              </div>
-          </div>
-      </div>
-  </div>
-</body>
-</html>
+            </div>
+        </div>
+        <div class="info">
+            <div class="wordRow">
+                <div id="character" class="word"></div>
+                <div class="other">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td id="pinyin"></td>
+                            <td id="phonetic_notation"></td>
+                            <td id="radicals"></td>
+                        </tr>
+                        <tr>
+                            <td id="total_stroke"></td>
+                            <td id="font_structure"></td>
+                            <td id="area"></td>
+                        </tr>
+                        <tr>
+                            <td id="voice"></td>
+                            <td id="pronunciation"></td>
+                            <td id="notes"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="wordMeaning">
+                <h1>基本字义</h1>
+            </div>
+            <div id="wordInfo" class="wordInfo"></div>
+        </div>
+    </div>
+</div>
+
+</body></html>

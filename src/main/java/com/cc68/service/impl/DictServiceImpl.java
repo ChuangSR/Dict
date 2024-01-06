@@ -1,6 +1,8 @@
 package com.cc68.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.cc68.beans.DialectBean;
+import com.cc68.beans.DictBean;
 import com.cc68.beans.MessageBean;
 import com.cc68.beans.SocketBean;
 import com.cc68.dao.DictDao;
@@ -19,14 +21,11 @@ public class DictServiceImpl implements DictService {
         this.dao = new DictDaoArray();
     }
 
-    public MessageBean search(String dialect, String character) {
+    public DictBean search(String dialect, String character) {
+        HashMap<String,Object> details = ScriptSocket.search(character);
         DialectBean dialectBean = dao.select(dialect, character);
-        SocketBean socketBean = ScriptSocket.search(character);
-        HashMap<String,Object> data = new HashMap<>();
-        data.put("dialect",dialectBean);
-        data.put("character",socketBean);
-        MessageBean messageBean = new MessageBean("reply",data);
-        return messageBean;
+        System.out.println(JSON.toJSONString(dialectBean));
+        return new DictBean(character,dialectBean,details);
     }
 
     @Override

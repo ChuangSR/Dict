@@ -14,11 +14,11 @@ public class SocketBean {
         this.type = type;
     }
 
-    public HashMap<String, String> getMap() {
+    public HashMap<String, String> getData() {
         return data;
     }
 
-    public void setMap(HashMap<String, String> data) {
+    public void setData(HashMap<String, String> data) {
         this.data = data;
     }
 

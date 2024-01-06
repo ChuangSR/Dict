@@ -14,5 +14,5 @@ public interface DictDao {
 
     boolean renew(String dialect,DialectBean bean,String old);
 
-    HashMap<String, ArrayList<String>> getDialects();
+    HashMap<String,String[]> getDialects();
 }

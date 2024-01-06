@@ -13,7 +13,7 @@ public class DictBean implements Serializable {
     private DialectBean dialect;
 
     //详情数据
-    private HashMap<String,String> details;
+    private HashMap<String,Object> details;
 
     public String getData() {
         return data;
@@ -31,18 +31,18 @@ public class DictBean implements Serializable {
         this.dialect = dialect;
     }
 
-    public HashMap<String, String> getDetails() {
+    public HashMap<String, Object> getDetails() {
         return details;
     }
 
-    public void setDetails(HashMap<String, String> details) {
+    public void setDetails(HashMap<String, Object> details) {
         this.details = details;
     }
 
     public DictBean() {
     }
 
-    public DictBean(String data, DialectBean dialect, HashMap<String, String> details) {
+    public DictBean(String data, DialectBean dialect, HashMap<String, Object> details) {
         this.data = data;
         this.dialect = dialect;
         this.details = details;
