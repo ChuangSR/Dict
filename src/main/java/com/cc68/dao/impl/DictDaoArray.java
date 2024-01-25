@@ -24,7 +24,8 @@ public class DictDaoArray implements DictDao, Serializable {
     public DictDaoArray() {
         ObjectInputStream stream = null;
         try {
-            stream = new ObjectInputStream(new FileInputStream("G:\\OneDiver\\NewOD\\OneDrive - 睎的小屋\\MyProject\\idea\\Dict\\src\\main\\resources\\datas\\data.dialect"));
+//            System.getProperty("user.dir")+"\\..\\webapps\\Dict\\WEB-INF\\classes\\datas\\data.dialect"
+            stream = new ObjectInputStream(new FileInputStream(System.getProperty("user.dir")+"\\..\\webapps\\Dict\\WEB-INF\\classes\\datas\\data.dialect"));
             Object o = stream.readObject();
             if (o instanceof HashMap<?,?>){
                 map = (HashMap<String, Dialect>)o;

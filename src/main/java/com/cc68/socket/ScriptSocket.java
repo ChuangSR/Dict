@@ -21,7 +21,8 @@ public class ScriptSocket {
     public static HashMap<String,Object> search(String character){
         HashMap<String,String> data = new HashMap<>();
         data.put("character",character);
-        data.put("path","G:\\OneDiver\\NewOD\\OneDrive - 睎的小屋\\MyProject\\idea\\Dict\\src\\main\\webapp\\resources\\Character");
+//        data.put("path","G:\\OneDiver\\NewOD\\OneDrive - 睎的小屋\\MyProject\\idea\\Dict\\target\\Dict\\resources\\Character");
+        data.put("path",System.getProperty("user.dir")+"\\..\\webapps\\Dict\\resources\\Dialect");
         SocketBean bean = new SocketBean("search",data);
         return send(bean);
     }

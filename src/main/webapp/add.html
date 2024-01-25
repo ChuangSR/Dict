@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <script type="text/javascript">
+        window.onload = function (){
+            let xhr = new XMLHttpRequest();
+            let getDialect = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        let dialects = JSON.parse(this.responseText)["data"]["data"];
+                        let temp = "";
+                        for (let i in dialects) {
+                            temp += "<option value='"+dialects[i]+"'>" + dialects[i] + "</option>";
+                        }
+                        let dialectType = document.getElementById("dialectType");
+                        dialectType.innerHTML = temp;
+                    }
+                }
+            };
+            xhr.addEventListener("readystatechange", getDialect);
+            xhr.open("POST", "getDialect", true);
+            xhr.setRequestHeader(
+                "Content-Type",
+                "application/x-www-form-urlencoded"
+            );
+            let messageBean = 'data={"type":"getDialect"}';
+            xhr.send(messageBean);
+
+            let submit = document.getElementById("submit");
+            // submit.addEventListener("click",function (){
+            //     let data = document.getElementById("data");
+            //     let url = document.getElementById("url");
+            //     let pronunciation = document.getElementById("pronunciation");
+            //     let notes = document.getElementById("notes");
+            //     let select = document.getElementById("dialectType");
+            //     let dialectType = select[select.selectedIndex].text;
+            //
+            //     let bean = {
+            //         "type":"add",
+            //         "data":{
+            //             "dialectType":dialectType.value,
+            //             "data":data.value,
+            //             "voiceUrl":url.value,
+            //             "pronunciation":pronunciation.value,
+            //             "notes":notes.value
+            //         }
+            //     }
+            //     let beanString = JSON.stringify(bean);
+            //
+            //     let xhr = new XMLHttpRequest();
+            //     xhr.addEventListener("readystatechange", function () {
+            //         if (this.readyState === 4) {
+            //             if (this.status === 200) {
+            //                 alert(this.responseText);
+            //             }
+            //         }
+            //     });
+            //     xhr.open("POST", "add", true);
+            //     xhr.setRequestHeader(
+            //         "Content-Type",
+            //         "application/x-www-form-urlencoded"
+            //     );
+            //     xhr.send("data="+beanString);
+            // })
+        }
+    </script>
+</head>
+<body>
+<div align="center">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                字词
+            </td>
+            <td>
+                <input type="text" id="data">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                语音文件
+            </td>
+            <td>
+                <input type="file" id="url"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                读音
+            </td>
+            <td>
+                <input type="text" id="pronunciation">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                备注
+            </td>
+            <td>
+                <input type="text" id="notes">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                地区
+            </td>
+            <td>
+                <select name="select" id="dialectType">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" id="submit">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
